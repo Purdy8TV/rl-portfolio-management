@@ -4,6 +4,7 @@ outputs/
 .trash
 models/
 logs/
+data/*.bin
 
 #supporting files
 LICENSE
@@ -28,6 +29,13 @@ supporting_repos/
 tests/
 universal/
 utils/
+DeepRL/
+Universal-portfolios/
+
+# bot stuff
+results_bot_personal.py
+*.png
+
 
 
 # Created by https://www.gitignore.io/api/linux,python,windows
