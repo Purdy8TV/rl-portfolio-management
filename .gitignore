@@ -5,6 +5,31 @@ outputs/
 models/
 logs/
 
+#supporting files
+LICENSE
+MANIFEST.in
+On-line portfolios.ipynb
+README.md
+agent/
+async_worker/
+component/
+dataset.py
+images/
+log/
+main.py
+model/
+modern-portfolio-theory.ipynb
+network/
+requirements.txt
+runs/
+setup.cfg
+setup.py
+supporting_repos/
+tests/
+universal/
+utils/
+
+
 # Created by https://www.gitignore.io/api/linux,python,windows
 
 ### Linux ###
