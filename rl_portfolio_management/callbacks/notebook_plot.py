@@ -48,6 +48,9 @@ class LivePlotNotebook(object):
         ax.grid()
         ax.set_title(title)
 
+        for label in ax.xaxis.get_ticklabels()[::2]:
+            label.set_visible(False)
+
         # give the legend it's own space, the right 20% where it right align left
         if legend_outside:
             fig.subplots_adjust(right=0.8)

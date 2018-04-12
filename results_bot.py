@@ -31,6 +31,7 @@ class ResultsBot():
         myBot.sendPhoto(self.chat_id, photo=open('test_pandp.png', 'rb'))
         myBot.sendPhoto(self.chat_id, photo=open('test_weights.png', 'rb'))
         myBot.sendPhoto(self.chat_id, photo=open('test_costs.png', 'rb'))
+        myBot.sendPhoto(self.chat_id, photo=open('test_compar.png', 'rb'))
 
     def best_comparison(self):
         myBot = self.init_bot()

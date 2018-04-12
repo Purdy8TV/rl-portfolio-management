@@ -252,7 +252,7 @@ class PortfolioEnv(gym.Env):
         self.src = DataSrc(df=df, steps=steps, scale=scale, scale_extra_cols=scale_extra_cols,
                            augment=augment, window_length=window_length,
                            random_reset=random_reset)
-        self._plot = self._plot2 = self._plot3 = None
+        self._plot = self._plot2 = self._plot3 = self._plot4 = None
         self.output_mode = output_mode
         self.sim = PortfolioSim(
             asset_names=self.src.asset_names,
@@ -365,13 +365,14 @@ class PortfolioEnv(gym.Env):
         """Live plot using the jupyter notebook rendering of matplotlib."""
 
         if close:
-            self._plot = self._plot2 = self._plot3 = None
+            self._plot = self._plot2 = self._plot3 = self._plot4 = None
             return
 
         df_info = pd.DataFrame(self.infos)
-        df_info.index = pd.to_datetime(df_info["date"], unit='s')
+        # Currently removed to give graphs a better flow - Need more practical solution
+        #df_info.index = pd.to_datetime(df_info["date"], unit='s')
 
-        print(df_info.head(30))
+        print(df_info.head())
         
         # plot prices and performance
         all_assets = ['Cash'] + self.sim.asset_names
@@ -410,6 +411,19 @@ class PortfolioEnv(gym.Env):
         self._plot3.update(x, ys)
         self._plot3.saveFig('test_costs.png', 'tight', 800)
 
+        # Plotting the portfolio vs the benchmark
+        if not self._plot4:
+            colors = ['red'] + ['black']
+            self._plot_dir4 = os.path.join(
+                self.log_dir, 'notebook_plot_prices_' + str(time.time())) if self.log_dir else None
+            self._plot4 = LivePlotNotebook(
+                log_dir=self._plot_dir, title='prices & performance', labels=['DJIndu'] + ["Portfolio"], ylabel='value', colors=colors)
+        x = df_info.index
+        y_portfolio = df_info["portfolio_value"]
+        y_assets = [df_info['price_djindu'].cumprod()]
+                    #for name in all_assets]
+        self._plot4.update(x, y_assets + [y_portfolio])
+        self._plot4.saveFig('test_compar.png', 'tight', 800)
 
         if close:
-            self._plot = self._plot2 = self._plot3 = None
+            self._plot = self._plot2 = self._plot3 = self._plot4 = None
