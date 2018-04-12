@@ -80,3 +80,6 @@ class LivePlotNotebook(object):
                 self.log_dir, '%i_liveplot.png' % self.i))
         self.fig.canvas.draw()
         self.i += 1
+
+    def saveFig(self, filelocation, bboxvalue, dotsperinch):
+        self.fig.savefig(filelocation, bbox_inches=bboxvalue, dpi=dotsperinch)

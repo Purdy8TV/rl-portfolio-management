@@ -28,7 +28,9 @@ class ResultsBot():
     def testing_finished(self):
         myBot = self.init_bot()
         myBot.sendMessage(self.chat_id, 'Testing Finished')
-        myBot.sendPhoto(self.chat_id, photo=open('testing_fig.png', 'rb'))
+        myBot.sendPhoto(self.chat_id, photo=open('test_pandp.png', 'rb'))
+        myBot.sendPhoto(self.chat_id, photo=open('test_weights.png', 'rb'))
+        myBot.sendPhoto(self.chat_id, photo=open('test_costs.png', 'rb'))
 
     def best_comparison(self):
         myBot = self.init_bot()

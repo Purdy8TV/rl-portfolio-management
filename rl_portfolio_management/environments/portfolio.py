@@ -192,7 +192,7 @@ class PortfolioSim(object):
             "cost": c1,
         }
         # record weights and prices
-        for i, name in enumerate(['BTCBTC'] + self.asset_names):
+        for i, name in enumerate(['Cash'] + self.asset_names):
             info['weight_' + name] = w1[i]
             info['price_' + name] = y1[i]
 
@@ -371,8 +371,10 @@ class PortfolioEnv(gym.Env):
         df_info = pd.DataFrame(self.infos)
         df_info.index = pd.to_datetime(df_info["date"], unit='s')
 
+        print(df_info.head(30))
+        
         # plot prices and performance
-        all_assets = ['BTCBTC'] + self.sim.asset_names
+        all_assets = ['Cash'] + self.sim.asset_names
         if not self._plot:
             colors = [None] * len(all_assets) + ['black']
             self._plot_dir = os.path.join(
@@ -384,6 +386,8 @@ class PortfolioEnv(gym.Env):
         y_assets = [df_info['price_' + name].cumprod()
                     for name in all_assets]
         self._plot.update(x, y_assets + [y_portfolio])
+        self._plot.saveFig('test_pandp.png', 'tight', 800)
+
 
 
         # plot portfolio weights
@@ -394,6 +398,7 @@ class PortfolioEnv(gym.Env):
                 log_dir=self._plot_dir2, labels=all_assets, title='weights', ylabel='weight')
         ys = [df_info['weight_' + name] for name in all_assets]
         self._plot2.update(x, ys)
+        self._plot2.saveFig('test_weights.png', 'tight', 800)
 
         # plot portfolio costs
         if not self._plot3:
@@ -403,6 +408,8 @@ class PortfolioEnv(gym.Env):
                 log_dir=self._plot_dir3, labels=['cost'], title='costs', ylabel='cost')
         ys = [df_info['cost'].cumsum()]
         self._plot3.update(x, ys)
+        self._plot3.saveFig('test_costs.png', 'tight', 800)
+
 
         if close:
             self._plot = self._plot2 = self._plot3 = None
