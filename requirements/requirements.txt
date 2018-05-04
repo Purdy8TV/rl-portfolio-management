@@ -23,4 +23,5 @@ torchvision == 0.2.0
 #torch==0.3.0.post4
 #torchvision==0.1.8
 tensorboardX==0.8
+telepot == 12.6
 

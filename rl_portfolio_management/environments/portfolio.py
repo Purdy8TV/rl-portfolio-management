@@ -220,7 +220,7 @@ class PortfolioEnv(gym.Env):
     def __init__(self,
                  df,
                  steps=256,
-                 trading_cost=0.0025,
+                 trading_cost= 0.0025,#0.0025,
                  time_cost=0.00,
                  window_length=50,
                  augment=0.00,
